@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"testing"
 
@@ -178,6 +179,9 @@ func TestInterpConsistencyBuild(t *testing.T) {
 }
 
 func TestInterpErrorConsistency(t *testing.T) {
+	if runtime.Version() == "go1.18" {
+		t.Skip("skip go1.18")
+	}
 	testCases := []struct {
 		fileName       string
 		expectedInterp string
