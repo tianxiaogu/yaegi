@@ -1,4 +1,4 @@
-//go:build gc && !gccgo
+//go:build gccgo && !gc
 
 package unsafe2
 
@@ -12,7 +12,7 @@ type dummy struct{}
 // DummyType represents a stand-in for a recursive type.
 var DummyType = reflect.TypeOf(dummy{})
 
-// the following type sizes must match their original definition in Go src/reflect/type.go.
+// the following type sizes must match their original definition in gofrontend/libgo/go/reflect/type.go.
 
 type rtype struct {
 	_ uintptr
@@ -21,8 +21,9 @@ type rtype struct {
 	_ uint32
 	_ uintptr
 	_ uintptr
-	_ uint32
-	_ uint32
+	_ uintptr
+	_ uintptr
+	_ uintptr
 }
 
 type emptyInterface struct {
@@ -32,13 +33,14 @@ type emptyInterface struct {
 
 type structField struct {
 	_   uintptr
+	_   uintptr
 	typ *rtype
+	_   uintptr
 	_   uintptr
 }
 
 type structType struct {
 	rtype
-	_      uintptr
 	fields []structField
 }
 
